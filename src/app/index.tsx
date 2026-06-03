@@ -1,98 +1,129 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import HomeHeader from "@/components/home_header";
+import { Link } from "expo-router";
+import { StyleSheet, Text, View ,ScrollView} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+
+export default function Index() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
+    <SafeAreaView style={styles.container}>
+      
+      <View style={styles.leftBox}>
+      <Text style={[styles.title]}>Welcome</Text>
+      <Text style={[styles.text,{fontSize:18}]}>Md Sakif Rahaman Mishad</Text>
+      <HomeHeader />
+      {/* <Text style={[styles.text,{fontSize:16}]}>3.5.2026, 6:30 PM</Text> */}
+     </View>
+      <Link href='/meals' style={{ fontSize: 18, color: '#007bff' }}>
+        Go to Meals
+      </Link>
+    
+
+      {/* Text */}
+      <Text style={styles.text}>Hello World</Text>
+
+      {/* Margin */}
+      <Text style={[styles.text, { marginTop: 20 }]}>My App</Text>
+
+      {/* SizedBox equivalent */}
+      <View style={{ height: 30 }} />
+
+      {/* Column (default behavior) */}
+      <View style={styles.box}>
+        <Text style={styles.text}>Column Item 1</Text>
+        <Text style={styles.text}>Column Item 2</Text>
+        <Text style={styles.text}>Column Item 3</Text>
+      </View>
+
+      <View style={{ height: 30 }} />
+
+      <View style = {styles.row}>
+        <View style={styles.smallBox}>
+          <Text style={styles.text}>A</Text>
+        </View>
+
+         <View style={styles.smallBox}>
+          <Text style={styles.text}>B</Text>
+        </View>
+
+
+         <View style={styles.smallBox}>
+          <Text style={styles.text}>C</Text>
+        </View>
+
+      </View>
+     </SafeAreaView>
   );
 }
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
-
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
-
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    padding: 20,
+    alignItems: "center",
+    backgroundColor: "#282424",
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+
+  text: {
+  color: "#fff",
+  fontSize: 22,
+
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
+
   title: {
-    textAlign: 'center',
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "#fff",
   },
-  code: {
-    textTransform: 'uppercase',
+
+  box: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#fff",
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+
+  leftBox: {
+  height: 100,
+  //left
+  alignSelf: "flex-start",
+  },
+
+
+  rightBox: {
+  width: 100,
+  height: 100,
+  },
+
+  row: {
+    flexDirection: "row",
+    gap: 10,
+  },
+
+  smallBox: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#fff",
+  },
+
+  flexRow: {
+    flexDirection: "row",
+    width: "100%",
+    height: 100,
+  },
+
+  redBox: {
+    flex: 1,
+    backgroundColor: "red",
+  },
+
+  blueBox: {
+    flex: 2,
+    backgroundColor: "blue",
   },
 });
