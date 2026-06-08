@@ -1,6 +1,7 @@
 import HomeHeader from "@/components/home_header";
+import { colors } from "@/styles/global";
 import { Link } from "expo-router";
-import { StyleSheet, Text, View ,ScrollView} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
@@ -8,17 +9,18 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
-      
+
+
       <View style={styles.leftBox}>
-      <Text style={[styles.title]}>Welcome</Text>
-      <Text style={[styles.text,{fontSize:18}]}>Md Sakif Rahaman Mishad</Text>
-      <HomeHeader />
-      {/* <Text style={[styles.text,{fontSize:16}]}>3.5.2026, 6:30 PM</Text> */}
-     </View>
+        <Text style={[styles.title]}>Welcome</Text>
+        <Text style={[styles.text, { fontSize: 18 }]}>Md Sakif Rahaman Mishad</Text>
+        <HomeHeader />
+        {/* <Text style={[styles.text,{fontSize:16}]}>3.5.2026, 6:30 PM</Text> */}
+      </View>
       <Link href='/meals' style={{ fontSize: 18, color: '#007bff' }}>
         Go to Meals
       </Link>
-    
+
 
       {/* Text */}
       <Text style={styles.text}>Hello World</Text>
@@ -38,22 +40,22 @@ export default function Index() {
 
       <View style={{ height: 30 }} />
 
-      <View style = {styles.row}>
+      <View style={styles.row}>
         <View style={styles.smallBox}>
           <Text style={styles.text}>A</Text>
         </View>
 
-         <View style={styles.smallBox}>
+        <View style={styles.smallBox}>
           <Text style={styles.text}>B</Text>
         </View>
 
 
-         <View style={styles.smallBox}>
+        <View style={styles.smallBox}>
           <Text style={styles.text}>C</Text>
         </View>
 
       </View>
-     </SafeAreaView>
+    </SafeAreaView>
   );
 }
 
@@ -64,12 +66,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     alignItems: "center",
-    backgroundColor: "#282424",
+    backgroundColor: colors.background,
+
   },
 
   text: {
-  color: "#fff",
-  fontSize: 22,
+    color: "#fff",
+    fontSize: 22,
 
   },
 
@@ -86,15 +89,15 @@ const styles = StyleSheet.create({
   },
 
   leftBox: {
-  height: 100,
-  //left
-  alignSelf: "flex-start",
+    height: 100,
+    //left
+    alignSelf: "flex-start",
   },
 
 
   rightBox: {
-  width: 100,
-  height: 100,
+    width: 100,
+    height: 100,
   },
 
   row: {
