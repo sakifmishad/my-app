@@ -1,10 +1,125 @@
 import { colors } from '@/styles/global';
-import { View, Text } from 'react-native';
+import { useState } from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 export default function AddMealScreen() {
+  const [name, setName] = useState(''); //nam = variable, setName = function to update variable, useState('') = initial value of variable
+  const [calories, setCalories] = useState('');
+  const [protein, setProtein] = useState('');
+  const [carbs, setCarbs] = useState('');
+  const [fat, setFat] = useState('');
+
+  const handleAddMeal = () => {
+    console.log({ name, calories, protein, carbs, fat });
+  };
+
   return (
-    <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ color: colors.text, fontSize: 24 }}>Add Meal</Text>
-    </View>
+    <SafeAreaView style={styles.screen}>
+      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Add Meal</Text>
+
+        <TextInput
+          style={styles.input}
+          placeholder='Meal name'
+          placeholderTextColor={colors.textSecondary}
+          value={name}
+          onChangeText={setName}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder='Calories'
+          placeholderTextColor={colors.textSecondary}
+          keyboardType='numeric'
+          value={calories}
+          onChangeText={setCalories}
+        />
+
+        <View style={styles.row}>
+          <TextInput
+            style={[styles.input, styles.rowInput]}
+            placeholder='Protein (g)'
+            placeholderTextColor={colors.textSecondary}
+            keyboardType='numeric'
+            value={protein}
+            onChangeText={setProtein}
+          />
+          <TextInput
+            style={[styles.input, styles.rowInput]}
+            placeholder='Carbs (g)'
+            placeholderTextColor={colors.textSecondary}
+            keyboardType='numeric'
+            value={carbs}
+            onChangeText={setCarbs}
+          />
+          <TextInput
+            style={[styles.input, styles.rowInput]}
+            placeholder='Fat (g)'
+            placeholderTextColor={colors.textSecondary}
+            keyboardType='numeric'
+            value={fat}
+            onChangeText={setFat}
+          />
+        </View>
+
+        <TouchableOpacity style={styles.button} onPress={handleAddMeal} activeOpacity={0.85}>
+          <Text style={styles.buttonText}>Add Meal</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: colors.background,
+  },
+  content: {
+    padding: 20,
+    paddingTop: 10,
+  },
+  title: {
+    fontSize: 34,
+    fontWeight: '800',
+    color: colors.text,
+    marginBottom: 18,
+  },
+  input: {
+    backgroundColor: '#3a3860',
+    color: colors.text,
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    fontSize: 16,
+    marginBottom: 14,
+  },
+  row: {
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 18,
+  },
+  rowInput: {
+    flex: 1,
+    marginBottom: 0,
+  },
+  button: {
+    backgroundColor: '#67d3ff',
+    paddingVertical: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: colors.background,
+    fontSize: 16,
+    fontWeight: '800',
+  },
+});
