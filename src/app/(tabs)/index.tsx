@@ -1,16 +1,34 @@
+import CopyButton from "@/components/CopyButton";
 import HomeHeader from "@/components/home_header";
 import MacroGrid from "@/components/MacroGrid";
 import RecentMeals from "@/components/RecentMeals";
-import { colors } from "@/styles/global";
-import { Link } from "expo-router";
+import ShareButton from "@/components/ShareButton";
+import { getMeals, Meal } from "@/storage/meals";
+import { colors, globalStyles } from "@/styles/global";
+import { Link, useFocusEffect } from "expo-router";
+import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
 export default function Index() {
+  const [meals, setMeals] = useState<Meal[]>([]);
+
+  const loadMeals = async () => {
+    // Implementation for loading meals
+    const data = await getMeals();
+    setMeals(data);
+    console.log('Loaded meals:', data);
+  };
+
+  useFocusEffect(() => {
+    //After save it refresh and shows new value
+    loadMeals();
+  });
+
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={globalStyles.container}>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.leftBox}>
@@ -20,8 +38,16 @@ export default function Index() {
           {/* <Text style={[styles.text,{fontSize:16}]}>3.5.2026, 6:30 PM</Text> */}
         </View>
 
-        <MacroGrid />
-        <RecentMeals />
+        <View style={globalStyles.header}>
+          <Text style={globalStyles.title}>MacroZone</Text>
+          <ShareButton meals={meals} />
+        </View>
+
+
+        <CopyButton meals={meals} />
+
+        <MacroGrid meals={meals} />
+        <RecentMeals meals={meals} onDelete={loadMeals} />
 
         <Link href='/meals' style={{ fontSize: 18, color: '#007bff' }}>
           Go to Meals
@@ -75,7 +101,6 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    padding: 20,
     alignItems: "center",
   },
 

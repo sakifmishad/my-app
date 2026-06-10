@@ -1,27 +1,49 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { deleteMeal } from '@/storage/meals';
+import * as Haptics from 'expo-haptics';
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
+
 
 type MealItemProps = {
+    id: string;
     name: string;
     calories: number;
     protein: number;
     carbs: number;
     fat: number;
+    ondelete: () => void;
 }
 
-export default function MealItem({ name,
+export default function MealItem({ id, name,
     calories,
     protein,
     carbs,
     fat,
+    ondelete,
 }: MealItemProps) {
+
+    const handleLongPress = () => {
+        Alert.alert('Delete Meal', 'Are you sure you want to delete this meal?', [
+            { text: 'Cancel', style: 'cancel' },
+            {
+                text: 'Delete', style: 'destructive',
+                onPress: async () => {
+                    await deleteMeal(id);
+                    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+                    ondelete();
+                }
+            },
+        ]);
+    };
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onLongPress={handleLongPress}>
             <Text style={styles.name}>{name}</Text>
-            <View style={styles.macros}>
-                <Text style={styles.metaText}>{calories} cal • {protein}g P • {carbs}g C • {fat}g F</Text>
-            </View>
-        </View>
+            <Text style={styles.name}>
+                {calories} cal • {protein}g P • {carbs}g C • {fat}g F
+            </Text>
+        </TouchableOpacity>
     );
+
 }
 
 const styles = StyleSheet.create({
